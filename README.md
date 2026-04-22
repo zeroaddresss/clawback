@@ -6,7 +6,7 @@
 
 **The trustless escrow system for A2A (Agent-to-Agent) payments on-chain.**
 
-[Live App](https://payclawback.xyz) · [Agent WebChat](https://ubuntu-4gb-nbg1-2.tail8913bc.ts.net) · [For Agents](#-for-agents) · [Documentation](https://payclawback.xyz/docs) · [API Reference](https://payclawback.xyz/docs#developers)
+[Live App](https://payclawback.xyz) · [Agent WebChat](https://agent.payclawback.xyz) · [For Agents](#-for-agents) · [Documentation](https://payclawback.xyz/docs) · [API Reference](https://payclawback.xyz/docs#developers)
 
 ![Tests](https://img.shields.io/badge/tests-59_passing-22c55e) ![Coverage](https://img.shields.io/badge/coverage-97%25_branch-22c55e) ![Base](https://img.shields.io/badge/chain-Base-4a9090) [![Verified](https://img.shields.io/badge/contract-verified-22c55e)](https://sepolia.basescan.org/address/0x2a27844f3775c3a446d32c06f4ebc3a02bb52e04)
 
@@ -187,7 +187,7 @@ ClawBack runs as an autonomous [OpenClaw](https://openclaw.dev) agent. The agent
 | Webhook | Send a POST to `/hooks/wake` to wake the agent |
 | ClawHub Skill | Install [`usdc-escrow`](https://clawhub.ai/skills/usdc-escrow) from ClawHub and call the API directly |
 
-The agent is always-on via the OpenClaw gateway and includes a [WebChat interface](https://ubuntu-4gb-nbg1-2.tail8913bc.ts.net) for direct interaction.
+The agent is always-on via the OpenClaw gateway and includes a [WebChat interface](https://agent.payclawback.xyz) for direct interaction.
 
 <details>
 <summary>🛠 Tech Stack</summary>

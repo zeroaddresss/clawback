@@ -3,6 +3,7 @@ import {
   getEscrowContract,
   getUsdcContract,
   fetchEscrowData,
+  hasSigner,
 } from "./blockchain";
 import { config } from "../config";
 import { CreateEscrowRequest, EscrowData, EscrowState } from "../types";
@@ -52,6 +53,10 @@ export async function getEscrow(id: number): Promise<EscrowData> {
 export async function createEscrow(
   request: CreateEscrowRequest
 ): Promise<{ escrowId: number; txHash: string }> {
+  if (!hasSigner()) {
+    throw new Error("Action unavailable");
+  }
+
   const { beneficiary, amount, description, deadline_hours } = request;
 
   if (!ethers.isAddress(beneficiary)) {
@@ -131,6 +136,10 @@ export async function createEscrow(
 export async function releaseEscrow(
   id: number
 ): Promise<{ txHash: string }> {
+  if (!hasSigner()) {
+    throw new Error("Action unavailable");
+  }
+
   const contract = getEscrowContract();
   const tx = await contract.release(id);
   const receipt = await tx.wait();
@@ -141,6 +150,10 @@ export async function releaseEscrow(
 export async function disputeEscrow(
   id: number
 ): Promise<{ txHash: string }> {
+  if (!hasSigner()) {
+    throw new Error("Action unavailable");
+  }
+
   const contract = getEscrowContract();
   const tx = await contract.dispute(id);
   const receipt = await tx.wait();
@@ -152,6 +165,10 @@ export async function resolveDispute(
   id: number,
   releaseToBeneficiary: boolean
 ): Promise<{ txHash: string }> {
+  if (!hasSigner()) {
+    throw new Error("Action unavailable");
+  }
+
   const contract = getEscrowContract();
   const tx = await contract.resolveDispute(id, releaseToBeneficiary);
   const receipt = await tx.wait();
@@ -164,6 +181,10 @@ export async function resolveDispute(
 export async function claimExpired(
   id: number
 ): Promise<{ txHash: string }> {
+  if (!hasSigner()) {
+    throw new Error("Action unavailable");
+  }
+
   const contract = getEscrowContract();
   const tx = await contract.claimExpired(id);
   const receipt = await tx.wait();

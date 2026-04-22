@@ -692,7 +692,7 @@ function A2ATab() {
         </div>
         <p className="text-muted-foreground text-sm mt-4">
           Try the agent now via{' '}
-          <a href="https://ubuntu-4gb-nbg1-2.tail8913bc.ts.net" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+          <a href="https://agent.payclawback.xyz" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
             WebChat
           </a>.
         </p>
@@ -729,7 +729,7 @@ function A2ATab() {
             </Link>
           </Button>
           <Button asChild variant="outline">
-            <a href="https://ubuntu-4gb-nbg1-2.tail8913bc.ts.net" target="_blank" rel="noopener noreferrer">
+            <a href="https://agent.payclawback.xyz" target="_blank" rel="noopener noreferrer">
               Chat with Agent
             </a>
           </Button>

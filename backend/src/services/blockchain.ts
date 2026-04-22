@@ -15,22 +15,36 @@ const STATE_NAMES: Record<number, string> = {
 export const eventBus = new EventEmitter();
 
 let provider: ethers.JsonRpcProvider;
-let wallet: ethers.Wallet;
+let wallet: ethers.Wallet | undefined;
 let escrowContract: ethers.Contract;
 let usdcContract: ethers.Contract;
 
 export function initBlockchain() {
+  if (!config.rpcUrl) {
+    throw new Error("RPC_URL is not configured");
+  }
+  if (!config.contractAddress) {
+    throw new Error("CONTRACT_ADDRESS is not configured");
+  }
+  if (!config.usdcAddress) {
+    throw new Error("USDC_ADDRESS is not configured");
+  }
+
   provider = new ethers.JsonRpcProvider(config.rpcUrl);
-  wallet = new ethers.Wallet(config.privateKey, provider);
+  wallet = config.privateKey
+    ? new ethers.Wallet(config.privateKey, provider)
+    : undefined;
+  const runner = wallet ?? provider;
+
   escrowContract = new ethers.Contract(
     config.contractAddress,
     ESCROW_ABI,
-    wallet
+    runner
   );
-  usdcContract = new ethers.Contract(config.usdcAddress, ERC20_ABI, wallet);
+  usdcContract = new ethers.Contract(config.usdcAddress, ERC20_ABI, runner);
 
   console.log(`Blockchain initialized`);
-  console.log(`  Wallet: ${wallet.address}`);
+  console.log(`  Wallet: ${wallet?.address ?? "not configured"}`);
   console.log(`  Contract: ${config.contractAddress}`);
   console.log(`  USDC: ${config.usdcAddress}`);
   console.log(`  RPC: ${config.rpcUrl}`);
@@ -42,6 +56,10 @@ export function getProvider() {
 
 export function getWallet() {
   return wallet;
+}
+
+export function hasSigner() {
+  return Boolean(wallet);
 }
 
 export function getEscrowContract() {

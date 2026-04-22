@@ -3,7 +3,7 @@ const server = Bun.serve({
   fetch() {
     return new Response(null, {
       status: 301,
-      headers: { Location: "https://ubuntu-4gb-nbg1-2.tail8913bc.ts.net/" },
+      headers: { Location: "https://agent.payclawback.xyz/" },
     });
   },
 });

@@ -58,25 +58,27 @@ app.route("/", escrowRoutes);
 const clients = new Set<ServerWebSocket<unknown>>();
 
 // Initialize blockchain services
-if (config.privateKey && config.contractAddress) {
+if (config.contractAddress && config.usdcAddress && config.rpcUrl) {
   initBlockchain();
-  setupEventListeners();
+  if (config.privateKey) {
+    setupEventListeners();
 
-  // Broadcast events to all connected WebSocket clients
-  eventBus.on("escrow-event", (event: EscrowEvent) => {
-    const message = JSON.stringify(event);
-    for (const ws of clients) {
-      try {
-        ws.send(message);
-      } catch {
-        clients.delete(ws);
+    // Broadcast events to all connected WebSocket clients
+    eventBus.on("escrow-event", (event: EscrowEvent) => {
+      const message = JSON.stringify(event);
+      for (const ws of clients) {
+        try {
+          ws.send(message);
+        } catch {
+          clients.delete(ws);
+        }
       }
-    }
-  });
+    });
+  } else {
+    console.log("Signer key not configured. Write actions are unavailable.");
+  }
 } else {
-  console.warn(
-    "PRIVATE_KEY or CONTRACT_ADDRESS not set. Blockchain features disabled."
-  );
+  console.warn("Missing RPC_URL, USDC_ADDRESS, or CONTRACT_ADDRESS. Blockchain features disabled.");
 }
 
 // Start the server using Bun.serve

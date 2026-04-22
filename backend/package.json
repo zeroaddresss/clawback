@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "hono": "^4.0.0",
-    "ethers": "^6.0.0"
+    "ethers": "^6.0.0",
+    "http-proxy": "^1.18.1"
   }
 }

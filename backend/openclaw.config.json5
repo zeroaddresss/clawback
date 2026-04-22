@@ -1,0 +1,64 @@
+{
+  gateway: {
+    mode: "local",
+    bind: "loopback",
+    port: 18789,
+    trustedProxies: ["127.0.0.1"],
+    controlUi: {
+      allowedOrigins: ["https://agent.payclawback.xyz"],
+      dangerouslyDisableDeviceAuth: true,
+    },
+    auth: {
+      mode: "token",
+      token: "${OPENCLAW_GATEWAY_TOKEN}",
+    },
+  },
+  browser: {
+    enabled: false,
+  },
+  canvasHost: {
+    enabled: false,
+  },
+  agents: {
+    defaults: {
+      workspace: "~/.openclaw/workspace",
+      models: {
+        "openrouter/z-ai/glm-5.1": {
+          alias: "glm",
+        },
+      },
+      model: {
+        primary: "openrouter/z-ai/glm-5.1",
+      },
+    },
+  },
+  tools: {
+    deny: ["browser", "canvas"],
+  },
+  plugins: {
+    entries: {
+      browser: {
+        enabled: false,
+      },
+      "phone-control": {
+        enabled: false,
+      },
+      "talk-voice": {
+        enabled: false,
+      },
+    },
+  },
+  hooks: {
+    enabled: true,
+    path: "/hooks",
+    token: "${OPENCLAW_HOOKS_TOKEN}",
+    mappings: [
+      {
+        match: { path: "wake" },
+        action: "agent",
+        agentId: "default",
+        deliver: true,
+      },
+    ],
+  },
+}
